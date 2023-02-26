@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "boards",
+  "info": {
+    "singularName": "board",
+    "pluralName": "boards",
+    "displayName": "board",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "isFavorite": {
+      "type": "boolean",
+      "default": false
+    },
+    "isClosed": {
+      "type": "boolean",
+      "default": false
+    },
+    "backgroundColor": {
+      "type": "string",
+      "minLength": 4
+    },
+    "isPrivate": {
+      "type": "boolean",
+      "default": false
+    },
+    "workspace": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::workspace.workspace",
+      "inversedBy": "boards"
+    },
+    "lists": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::list.list",
+      "mappedBy": "board"
+    },
+    "members": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "boards_member"
+    },
+    "owner": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user"
+    }
+  }
+}
